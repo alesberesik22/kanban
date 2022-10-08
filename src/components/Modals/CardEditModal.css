@@ -1,0 +1,95 @@
+.card_edit_modal {
+  position: absolute;
+  border: 1px solid grey;
+  outline: none;
+  border-radius: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  padding: 4px;
+  width: 50%;
+  background: white;
+}
+.card_edit_modal_container {
+  padding: 4rem 6rem;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 20rem;
+}
+.card_edit_modal_container_header {
+  height: 2.5rem;
+  width: 50%;
+}
+.card_edit_modal_container_header input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  margin-bottom: 2rem;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  transition: all 0.5s 0s ease-in-out;
+}
+.card_edit_modal_container_header input :hover,
+.card_edit_modal_container_header input:focus {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.card_edit_modal_container_description {
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.5s 0s ease-in-out;
+}
+.card_edit_modal_container_description:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.card_edit_modal_container_description textarea {
+  width: 100%;
+  height: 15rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  transition: all 0.5s 0s ease-in-out;
+}
+.card_edit_modal_container_description_buttons {
+  width: 100%;
+  height: 1rem;
+}
+.card_edit_modal_container_description_buttons button {
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #1a202c;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 24px;
+  padding: 24px;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 25%;
+  background: transparent;
+  transition: all 0.5s 0s ease-in-out;
+}
+.card_edit_modal_container_description_buttons button:hover {
+  background: #d9d9d9;
+  scale: 1.05;
+}
