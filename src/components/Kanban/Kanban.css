@@ -1,0 +1,87 @@
+.kanban {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: #d9d9d9;
+}
+.kanban_container {
+  padding: 4rem 6rem;
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.kanban_header_title_edit {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  transition: var(--transition);
+}
+.kanban_header_title_edit svg {
+  width: 25px;
+  height: 100%;
+  color: black;
+  transition: var(--transition);
+}
+.kanban_header_title_edit svg:hover {
+  scale: 1.1;
+}
+.kanban_header {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.kanban_header_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.kanban_header input {
+  font-family: "Roboto";
+  letter-spacing: 0.05em;
+  font-size: 30px;
+  font-weight: 900;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: black;
+  margin-bottom: 1rem;
+}
+.kanban_header_desription textarea {
+  font-family: "Roboto";
+  letter-spacing: 0.05em;
+  line-height: 1.04em;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 35.2px;
+  color: grey;
+
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+}
+.kanban_header_desription {
+  height: 15rem;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.kanban_body {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}

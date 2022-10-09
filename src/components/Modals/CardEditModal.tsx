@@ -3,6 +3,7 @@ import "./CardEditModal.css";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import useAutosizeTextArea from "./useAutoResizeTextArea";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 
 const CardEditModal = (props: any) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -35,6 +36,13 @@ const CardEditModal = (props: any) => {
           <div className="card_edit_modal_container">
             <div className="card_edit_modal_container_header">
               <input type={"text"} value={title} onChange={changeTitle} />
+              {/* <div className="emoji_picker">
+                <EmojiPicker
+                  onEmojiClick={(e) => console.log(e)}
+                  autoFocusSearch={false}
+                  theme={Theme.AUTO}
+                />
+              </div> */}
             </div>
             <div className="card_edit_modal_container_description">
               <textarea
