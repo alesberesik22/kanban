@@ -7,38 +7,63 @@
   background: #252525;
 }
 .kanban_container {
-  padding: 4rem 6rem;
-  width: 90%;
   display: flex;
+  width: 100%;
+  height: 100%;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  background: #252525;
+  background: white;
+}
+.kanban_header_title_addBoard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  height: 90%;
+  font-family: "Roboto";
+  font-weight: 900;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.kanban_header_title_addBoard:hover {
+  scale: 1.05;
+  background: #562bf7;
+  color: white;
 }
 .kanban_header_title_edit {
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   transition: var(--transition);
+  height: 100%;
 }
-.kanban_header_title_edit svg {
+.edit_button {
   width: 25px;
   height: 100%;
   color: black;
   transition: var(--transition);
+  cursor: pointer;
+  margin-left: 30px;
 }
-.kanban_header_title_edit svg:hover {
+.edit_button:hover {
   scale: 1.1;
 }
 .kanban_header {
-  height: 100%;
-  width: 100%;
+  height: 290px;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
   flex-direction: column;
-  gap: 20px;
+  height: 100%;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 3rem 6rem 0 6rem;
+  gap: 30px;
 }
 .kanban_header_title {
   display: flex;
@@ -46,7 +71,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 46px;
 }
 .kanban_header input {
   font-family: "Roboto";
@@ -56,36 +81,40 @@
   border: none;
   outline: none;
   background: transparent;
-  color: aqua;
+  color: #562bf7;
   text-shadow: 2px 2px rgba(105, 105, 105, 0.185);
   margin-bottom: 1rem;
+  height: 100%;
+  width: 100%;
 }
 .kanban_header_desription textarea {
-  font-family: "Roboto";
-  letter-spacing: 0.05em;
-  line-height: 1.04em;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 35.2px;
-  color: grey;
-
+  padding: 0;
   width: 100%;
-  height: 100%;
   border-radius: 0.5rem;
   background: transparent;
   border: none;
   outline: none;
   resize: none;
+  font-family: "Roboto";
+  letter-spacing: 0.15em;
+  line-height: 20px;
+  box-sizing: border-box;
 }
 .kanban_header_desription {
-  height: 15rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 13rem;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .kanban_body {
   display: flex;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
+  background: #f5f7fb;
+  width: 100%;
 }
 .column {
   transition: all 0.5s 0s ease-in-out;
@@ -103,7 +132,28 @@
   font-family: "Roboto";
   letter-spacing: 0.05em;
   transition: all 0.5s 0s ease-in-out;
+  text-transform: uppercase;
+  font-size: 20px;
+  height: 100%;
 }
 .header:hover {
   scale: 1.05;
+}
+.kanban_body_container {
+  width: 100%;
+  height: 100%;
+  padding: 2rem 6rem 4rem 6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.kanban_header_title_addBoard span {
+  height: 100%;
+  width: 30px;
+}
+.addBoard {
+  width: 100%;
+  height: 100%;
+  width: 25px;
 }

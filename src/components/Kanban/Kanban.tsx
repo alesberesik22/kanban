@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./Kanban.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { AiFillEdit, AiOutlineCheck } from "react-icons/ai";
+import {
+  AiFillEdit,
+  AiOutlineCheck,
+  AiOutlinePlusSquare,
+} from "react-icons/ai";
+import { motion } from "framer-motion";
+import NewColumnModal from "../Modals/NewColumnModal";
 
 const itemsFromBackend = [
   { id: 0, content: "first task" },
@@ -23,7 +29,8 @@ const Kanban = () => {
   const [columns, setColumns] = useState(columnsFromBackend);
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState("Test");
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState(true);
+  const [newModal, setNewModal] = useState(false);
   const [text, setText] = useState(
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!"
   );
@@ -76,10 +83,8 @@ const Kanban = () => {
       setColumns(
         columns.map((item) => {
           if (item.id === Number(source.droppableId)) {
-            console.log(item.id, "som tu");
             return { ...item, items: coppiedItems };
           } else {
-            console.log(item.id, "neni som tu");
             return item;
           }
         })
@@ -101,13 +106,36 @@ const Kanban = () => {
               onChange={(e) => setTitle(e.target.value)}
             />
             {hover && (
-              <div className="kanban_header_title_edit" onClick={editHeader}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="kanban_header_title_edit"
+              >
+                <div
+                  className="kanban_header_title_addBoard"
+                  onClick={() => setNewModal(true)}
+                >
+                  <span style={{ marginRight: "10px" }}>
+                    <AiOutlinePlusSquare className="addBoard" />
+                  </span>
+                  New Board
+                </div>
                 {!edit ? (
-                  <AiFillEdit style={{ color: "aqua" }} />
+                  <AiFillEdit
+                    style={{ color: "#562bf7" }}
+                    onClick={editHeader}
+                    className="edit_button"
+                  />
                 ) : (
-                  <AiOutlineCheck style={{ color: "green" }} />
+                  <AiOutlineCheck
+                    style={{ color: "green" }}
+                    onClick={editHeader}
+                    className="edit_button"
+                  />
                 )}
-              </div>
+              </motion.div>
             )}
           </div>
           <div className="kanban_header_desription">
@@ -119,88 +147,97 @@ const Kanban = () => {
           </div>
         </div>
         <div className="kanban_body">
-          <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
-            {columns.map((column) => (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                key={column.id}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    marginLeft: "45px",
-                  }}
-                >
-                  <h2
-                    style={{
-                      width: "80%",
-                      color: "grey",
-                    }}
-                    className="header"
-                  >
-                    {column.name}
-                  </h2>
-                </div>
+          <div className="kanban_body_container">
+            <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+              {columns.map((column) => (
                 <div
                   style={{
                     display: "flex",
-                    width: "19rem",
+                    flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center",
                   }}
+                  key={column.id}
                 >
-                  <Droppable droppableId={String(column.id)} key={column.id}>
-                    {(provided, snapshot) => (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={{
-                          padding: 4,
-                          width: "16rem",
-                          height: 500,
-                          borderRadius: 15,
-                        }}
-                        className="column"
-                      >
-                        {column.items.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={String(item.id)}
-                            index={index}
-                          >
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={{
-                                  userSelect: "none",
-                                  padding: 0,
-                                  margin: "0 0 8px 0",
-                                  minHeight: "50px",
-                                  color: "white",
-                                  ...provided.draggableProps.style,
-                                }}
-                              >
-                                <Card />
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      marginLeft: "45px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h2
+                      style={{
+                        width: "80%",
+                        color: "grey",
+                      }}
+                      className="header"
+                    >
+                      {column.name}
+                    </h2>
+                    <AiOutlinePlusSquare style={{ width: "25px" }} />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "19rem",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Droppable droppableId={String(column.id)} key={column.id}>
+                      {(provided, snapshot) => (
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          style={{
+                            padding: 4,
+                            width: "18rem",
+                            height: 500,
+                            borderRadius: 15,
+                          }}
+                          className="column"
+                        >
+                          {column.items.map((item, index) => (
+                            <Draggable
+                              key={item.id}
+                              draggableId={String(item.id)}
+                              index={index}
+                            >
+                              {(provided, snapshot) => (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  style={{
+                                    userSelect: "none",
+                                    padding: 0,
+                                    margin: "0 0 8px 0",
+                                    minHeight: "50px",
+                                    color: "white",
+                                    ...provided.draggableProps.style,
+                                  }}
+                                >
+                                  <Card />
+                                </div>
+                              )}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </DragDropContext>
+              ))}
+            </DragDropContext>
+          </div>
         </div>
       </div>
+      {newModal && (
+        <NewColumnModal newColumn={newModal} setNewColumn={setNewModal} />
+      )}
     </div>
   );
 };

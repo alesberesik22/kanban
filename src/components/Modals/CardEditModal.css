@@ -113,6 +113,7 @@
   transition: all 0.2s 0s ease-out;
 }
 .card_edit_modal_container_description_buttons button:hover {
-  background: #d9d9d9;
+  background: #562bf7;
   scale: 1.05;
+  color: white;
 }

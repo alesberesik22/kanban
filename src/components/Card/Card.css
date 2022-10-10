@@ -1,5 +1,5 @@
 .card {
-  width: 16rem;
+  width: 18rem;
   height: 14.5rem;
   background: white;
   border-radius: 15px;
@@ -72,7 +72,7 @@
 }
 .card_container_header_settings:hover {
   scale: 1.08;
-  background: rgba(0, 162, 255, 0.58);
+  background: #572bf781;
 }
 .card_container_text span {
   font-family: "Roboto";
@@ -85,7 +85,7 @@
   margin-top: 0.5rem;
 }
 .card_importance {
-  width: 118%;
+  width: 116%;
   height: 10px;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
