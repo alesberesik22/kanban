@@ -1,6 +1,6 @@
 .card {
   width: 16rem;
-  height: 13.5rem;
+  height: 14.5rem;
   background: white;
   border-radius: 15px;
   display: flex;
@@ -21,6 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 0px;
+  overflow: hidden;
 }
 .card_container_header {
   width: 100%;
@@ -43,6 +44,7 @@
   flex-direction: row;
   gap: 10px;
   transition: var(--transition);
+  color: black;
 }
 .card_container_header_close {
   width: 110%;
@@ -81,4 +83,13 @@
 .card_container_text {
   cursor: pointer;
   margin-top: 0.5rem;
+}
+.card_importance {
+  width: 118%;
+  height: 10px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 0;
+  margin-top: auto;
+  margin-left: -20px;
 }

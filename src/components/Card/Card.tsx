@@ -26,7 +26,7 @@ const Card = () => {
     >
       <div className="card_container">
         <div className="card_container_header">
-          <h2>Title</h2>
+          <h2 style={{ color: "black" }}>Title</h2>
           {hover === "card" ? (
             <div className="card_container_settings">
               <div className="card_container_header_close">
@@ -46,6 +46,7 @@ const Card = () => {
             {text.length > 250 ? text : text.substring(0, 150) + "...   "}
           </span>
         </div>
+        <div className="card_importance" style={{ background: "aqua" }}></div>
       </div>
       {cardModal && (
         <CardViewModal
