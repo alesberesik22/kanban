@@ -5,13 +5,12 @@ import "./Card.css";
 import CardViewModal from "../Modals/CardViewModal";
 import CardEditModal from "../Modals/CardEditModal";
 
-const Card = () => {
+const Card = (props: any) => {
   const [hover, setHover] = useState("");
   const [cardModal, setCardModal] = useState(false);
   const [cardEdit, setCardEdit] = useState(false);
-  const [text, setText] = useState(
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!"
-  );
+  const [title, setTitle] = useState(props.title);
+  const [text, setText] = useState(props.content);
   const showModal = () => {
     setCardModal(true);
     setCardEdit(false);
@@ -26,7 +25,7 @@ const Card = () => {
     >
       <div className="card_container">
         <div className="card_container_header">
-          <h2 style={{ color: "black" }}>Title</h2>
+          <h2 style={{ color: "black" }}>{props.title}</h2>
           {hover === "card" ? (
             <div className="card_container_settings">
               <div className="card_container_header_close">
@@ -53,7 +52,7 @@ const Card = () => {
           cardModal={cardModal}
           setShowCardModal={setCardModal}
           setHover={setHover}
-          id={"text"}
+          id={props.id}
         />
       )}
       {cardEdit && (
@@ -61,7 +60,9 @@ const Card = () => {
           cardEdit={cardEdit}
           setShowCardEditModatl={setCardEdit}
           setHover={setHover}
-          id={"text"}
+          id={props.id}
+          setNewTitle={setTitle}
+          setNewText={setText}
         />
       )}
     </div>

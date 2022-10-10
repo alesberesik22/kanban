@@ -88,6 +88,7 @@
   transform-origin: left top;
 }
 .card_edit_modal_container_description_buttons div:hover {
+  color: #562bf7;
   transform: scale(1.05);
 }
 .card_edit_modal_container_description_buttons button {

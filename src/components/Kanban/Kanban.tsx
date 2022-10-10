@@ -9,14 +9,35 @@ import {
 } from "react-icons/ai";
 import { motion } from "framer-motion";
 import NewColumnModal from "../Modals/NewColumnModal";
+import CreateTaskModal from "../Modals/CreateTaskModal";
 
 const itemsFromBackend = [
-  { id: 0, content: "first task" },
-  { id: 1, content: "second task" },
+  {
+    id: 0,
+    title: "Title",
+    content:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+  },
+  {
+    id: 1,
+    title: "Title",
+    content:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+  },
 ];
 const items2FromBackend = [
-  { id: 3, content: "third task" },
-  { id: 4, content: "forth task" },
+  {
+    id: 3,
+    title: "Title",
+    content:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+  },
+  {
+    id: 4,
+    title: "Title",
+    content:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+  },
 ];
 
 const columnsFromBackend = [
@@ -30,7 +51,9 @@ const Kanban = () => {
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState("Test");
   const [hover, setHover] = useState(true);
+  const [createTaskId, setCreateTaskId] = useState<Number>();
   const [newModal, setNewModal] = useState(false);
+  const [createTask, setCreateTask] = useState(false);
   const [text, setText] = useState(
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!"
   );
@@ -42,11 +65,8 @@ const Kanban = () => {
   const editHeader = () => {
     setEdit((prev) => !prev);
   };
-  useEffect(() => {
-    console.log(items2FromBackend);
-  }, [columns]);
+  useEffect(() => {}, [columns]);
   const onDragEnd = (result: any) => {
-    console.log(result);
     if (!result.destination) return;
     const { source, destination } = result;
     if (source.droppableId !== destination.droppableId) {
@@ -70,7 +90,6 @@ const Kanban = () => {
               items: destItems,
             };
           } else {
-            console.log(item.id, "neni som tu");
             return item;
           }
         })
@@ -160,9 +179,8 @@ const Kanban = () => {
                 >
                   <div
                     style={{
-                      width: "100%",
+                      width: "19rem",
                       height: "100%",
-                      marginLeft: "45px",
                       display: "flex",
                       alignItems: "center",
                     }}
@@ -176,7 +194,13 @@ const Kanban = () => {
                     >
                       {column.name}
                     </h2>
-                    <AiOutlinePlusSquare style={{ width: "25px" }} />
+                    <AiOutlinePlusSquare
+                      className="add_task"
+                      onClick={() => {
+                        setCreateTask(true);
+                        setCreateTaskId(column.id);
+                      }}
+                    />
                   </div>
                   <div
                     style={{
@@ -184,6 +208,7 @@ const Kanban = () => {
                       width: "19rem",
                       alignItems: "center",
                       justifyContent: "center",
+                      marginRight: "40px",
                     }}
                   >
                     <Droppable droppableId={String(column.id)} key={column.id}>
@@ -213,13 +238,17 @@ const Kanban = () => {
                                   style={{
                                     userSelect: "none",
                                     padding: 0,
-                                    margin: "0 0 8px 0",
+                                    margin: "0 0 15px 0",
                                     minHeight: "50px",
                                     color: "white",
                                     ...provided.draggableProps.style,
                                   }}
                                 >
-                                  <Card />
+                                  <Card
+                                    title={item.title}
+                                    content={item.content}
+                                    id={item.id}
+                                  />
                                 </div>
                               )}
                             </Draggable>
@@ -236,7 +265,19 @@ const Kanban = () => {
         </div>
       </div>
       {newModal && (
-        <NewColumnModal newColumn={newModal} setNewColumn={setNewModal} />
+        <NewColumnModal
+          newColumn={newModal}
+          setNewColumn={setNewModal}
+          setAddColumn={setColumns}
+        />
+      )}
+      {createTask && (
+        <CreateTaskModal
+          columnID={createTaskId}
+          setColumns={setColumns}
+          createTask={createTask}
+          setCreateTask={setCreateTask}
+        />
       )}
     </div>
   );

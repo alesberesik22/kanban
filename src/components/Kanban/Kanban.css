@@ -157,3 +157,14 @@
   height: 100%;
   width: 25px;
 }
+.add_task {
+  width: 25px;
+  size: 20px;
+  height: 25px;
+  color: grey;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.add_task:hover {
+  color: #562bf7;
+}
