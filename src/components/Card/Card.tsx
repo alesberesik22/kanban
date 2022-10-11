@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 import "./Card.css";
@@ -7,6 +7,7 @@ import CardEditModal from "../Modals/CardEditModal";
 
 const Card = (props: any) => {
   const [hover, setHover] = useState("");
+  const [priority, setPriority] = useState({});
   const [cardModal, setCardModal] = useState(false);
   const [cardEdit, setCardEdit] = useState(false);
   const [title, setTitle] = useState(props.title);
@@ -15,6 +16,17 @@ const Card = (props: any) => {
     setCardModal(true);
     setCardEdit(false);
   };
+  useEffect(() => {
+    if (props.priority === "Easy") {
+      setPriority({ background: "aqua" });
+    } else if (props.priority === "Medium") {
+      setPriority({ background: "yellow" });
+    } else if (props.priority === "Critical") {
+      setPriority({ background: "red" });
+    } else {
+      setPriority({ background: "aqua" });
+    }
+  }, []);
   return (
     <div
       className="card"
@@ -45,7 +57,7 @@ const Card = (props: any) => {
             {text.length > 250 ? text : text.substring(0, 150) + "...   "}
           </span>
         </div>
-        <div className="card_importance" style={{ background: "aqua" }}></div>
+        <div className="card_importance" style={priority}></div>
       </div>
       {cardModal && (
         <CardViewModal

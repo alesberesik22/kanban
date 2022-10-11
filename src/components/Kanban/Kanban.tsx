@@ -17,12 +17,14 @@ const itemsFromBackend = [
     title: "Title",
     content:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+    priority: "Easy",
   },
   {
     id: 1,
     title: "Title",
     content:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+    priority: "Medium",
   },
 ];
 const items2FromBackend = [
@@ -31,12 +33,14 @@ const items2FromBackend = [
     title: "Title",
     content:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+    priority: "Critical",
   },
   {
     id: 4,
     title: "Title",
     content:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
+    priority: "Easy",
   },
 ];
 
@@ -65,7 +69,9 @@ const Kanban = () => {
   const editHeader = () => {
     setEdit((prev) => !prev);
   };
-  useEffect(() => {}, [columns]);
+  useEffect(() => {
+    console.log(columns);
+  }, [columns]);
   const onDragEnd = (result: any) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -248,6 +254,7 @@ const Kanban = () => {
                                     title={item.title}
                                     content={item.content}
                                     id={item.id}
+                                    priority={item.priority}
                                   />
                                 </div>
                               )}
