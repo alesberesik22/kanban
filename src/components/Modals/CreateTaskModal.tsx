@@ -21,12 +21,14 @@ const CreateTaskModal = (props: any) => {
       content: context,
       priority: priority,
     };
-    props.setColumns((oldArray: []) =>
+    props.setColumns((oldArray: any) =>
       oldArray.map((item: any) => {
         if (item.id === props.columnID) {
-          console.log(props.columnID);
-          console.log(item);
-          return [...item.items, payload];
+          var task = item.items;
+          task.push(payload);
+          return { ...item, items: task };
+        } else {
+          return item;
         }
       })
     );

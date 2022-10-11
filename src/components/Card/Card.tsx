@@ -75,6 +75,8 @@ const Card = (props: any) => {
           id={props.id}
           setNewTitle={setTitle}
           setNewText={setText}
+          title={title}
+          text={text}
         />
       )}
     </div>

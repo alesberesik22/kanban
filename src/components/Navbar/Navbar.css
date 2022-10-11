@@ -1,0 +1,84 @@
+.navbar {
+  width: 16%;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 00 1rem 2rem;
+  background-color: white;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  gap: 2rem;
+}
+.navbar_header {
+  width: 100%;
+  height: 5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.navbar_header img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.navbar_create_kanban {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+}
+.navbar_create_kanban button {
+  width: 90%;
+  height: 60%;
+  border-radius: 8px;
+  background: #562bf7;
+  color: white;
+  font-family: "Roboto";
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  border: none;
+  outline: none;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.navbar_create_kanban button:hover {
+  scale: 1.05;
+}
+.navbar_menu_active {
+  background: #f5f7fb;
+  scale: 1.03;
+  font-weight: 700 !important;
+}
+.navbar_menu {
+  width: 100%;
+  height: 65%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.navbar_menu_home {
+  width: 100%;
+  height: 2.5rem;
+  padding-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Roboto";
+  letter-spacing: 0.04em;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  color: black;
+}
+.navbar_menu_home:hover {
+  scale: 1.05;
+}
+.navbar_menu_home span svg {
+  width: 15px;
+}
+.icon_active {
+  color: #562bf7;
+}

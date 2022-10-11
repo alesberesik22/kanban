@@ -9,10 +9,8 @@ const CardEditModal = (props: any) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const id = props.id;
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("title");
-  const [text, setText] = useState(
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!"
-  );
+  const [title, setTitle] = useState(props.title);
+  const [text, setText] = useState(props.text);
   const closeModal = () => {
     props.setShowCardEditModatl(false);
     props.setHover("");
@@ -20,13 +18,19 @@ const CardEditModal = (props: any) => {
   };
   useEffect(() => {
     setOpen(props.cardEdit);
-    console.log(id);
   }, []);
   const changeTitle = (e: any) => {
     setTitle(e.target.value);
   };
   const changeText = (e: any) => {
     setText(e.target.value);
+  };
+  const confirmEdit = () => {
+    console.log(title);
+    props.setNewText(text);
+    props.setNewTitle(title);
+    props.setShowCardEditModatl(false);
+    setOpen(false);
   };
   useAutosizeTextArea(textAreaRef.current, text);
   return (
@@ -52,7 +56,7 @@ const CardEditModal = (props: any) => {
               ></textarea>
             </div>
             <div className="card_edit_modal_container_description_buttons">
-              <button>Confirm</button>
+              <button onClick={confirmEdit}>Confirm</button>
               <div>Cancel</div>
             </div>
           </div>

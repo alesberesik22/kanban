@@ -26,6 +26,12 @@ const itemsFromBackend = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
     priority: "Medium",
   },
+  {
+    id: 10,
+    title: "Title",
+    content: "Nieco",
+    priority: "",
+  },
 ];
 const items2FromBackend = [
   {
@@ -71,7 +77,7 @@ const Kanban = () => {
   };
   useEffect(() => {
     console.log(columns);
-  }, [columns]);
+  }, [createTask]);
   const onDragEnd = (result: any) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -174,99 +180,103 @@ const Kanban = () => {
         <div className="kanban_body">
           <div className="kanban_body_container">
             <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
-              {columns.map((column) => (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                  key={column.id}
-                >
+              {columns &&
+                columns.map((column) => (
                   <div
                     style={{
-                      width: "19rem",
-                      height: "100%",
                       display: "flex",
+                      flexDirection: "column",
                       alignItems: "center",
                     }}
+                    key={column.id}
                   >
-                    <h2
+                    <div
                       style={{
-                        width: "80%",
-                        color: "grey",
+                        width: "19rem",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
                       }}
-                      className="header"
                     >
-                      {column.name}
-                    </h2>
-                    <AiOutlinePlusSquare
-                      className="add_task"
-                      onClick={() => {
-                        setCreateTask(true);
-                        setCreateTaskId(column.id);
+                      <h2
+                        style={{
+                          width: "80%",
+                          color: "grey",
+                        }}
+                        className="header"
+                      >
+                        {column.name}
+                      </h2>
+                      <AiOutlinePlusSquare
+                        className="add_task"
+                        onClick={() => {
+                          setCreateTask(true);
+                          setCreateTaskId(column.id);
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "19rem",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginRight: "40px",
                       }}
-                    />
+                    >
+                      <Droppable
+                        droppableId={String(column.id)}
+                        key={column.id}
+                      >
+                        {(provided, snapshot) => (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            style={{
+                              padding: 4,
+                              width: "18rem",
+                              height: 500,
+                              borderRadius: 15,
+                            }}
+                            className="column"
+                          >
+                            {column.items.map((item, index) => (
+                              <Draggable
+                                key={item.id}
+                                draggableId={String(item.id)}
+                                index={index}
+                              >
+                                {(provided, snapshot) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={{
+                                      userSelect: "none",
+                                      padding: 0,
+                                      margin: "0 0 15px 0",
+                                      minHeight: "50px",
+                                      color: "white",
+                                      ...provided.draggableProps.style,
+                                    }}
+                                  >
+                                    <Card
+                                      title={item.title}
+                                      content={item.content}
+                                      id={item.id}
+                                      priority={item.priority}
+                                    />
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "19rem",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "40px",
-                    }}
-                  >
-                    <Droppable droppableId={String(column.id)} key={column.id}>
-                      {(provided, snapshot) => (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                          style={{
-                            padding: 4,
-                            width: "18rem",
-                            height: 500,
-                            borderRadius: 15,
-                          }}
-                          className="column"
-                        >
-                          {column.items.map((item, index) => (
-                            <Draggable
-                              key={item.id}
-                              draggableId={String(item.id)}
-                              index={index}
-                            >
-                              {(provided, snapshot) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  style={{
-                                    userSelect: "none",
-                                    padding: 0,
-                                    margin: "0 0 15px 0",
-                                    minHeight: "50px",
-                                    color: "white",
-                                    ...provided.draggableProps.style,
-                                  }}
-                                >
-                                  <Card
-                                    title={item.title}
-                                    content={item.content}
-                                    id={item.id}
-                                    priority={item.priority}
-                                  />
-                                </div>
-                              )}
-                            </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-                  </div>
-                </div>
-              ))}
+                ))}
             </DragDropContext>
           </div>
         </div>
