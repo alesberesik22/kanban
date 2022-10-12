@@ -60,7 +60,7 @@ const Kanban = () => {
   const [columns, setColumns] = useState(columnsFromBackend);
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState("Test");
-  const [hover, setHover] = useState(true);
+  const [hover, setHover] = useState(false);
   const [createTaskId, setCreateTaskId] = useState<Number>();
   const [newModal, setNewModal] = useState(false);
   const [createTask, setCreateTask] = useState(false);

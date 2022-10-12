@@ -1,5 +1,5 @@
 .kanban {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -55,10 +55,9 @@
   scale: 1.1;
 }
 .kanban_header {
-  height: 290px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 30%;
   justify-content: flex-start;
   width: 100%;
   box-sizing: border-box;
@@ -90,6 +89,7 @@
 .kanban_header_desription textarea {
   padding: 0;
   width: 100%;
+  height: 90%;
   border-radius: 0.5rem;
   background: transparent;
   border: none;
@@ -99,6 +99,9 @@
   letter-spacing: 0.15em;
   line-height: 20px;
   box-sizing: border-box;
+}
+.kanban_header_desription textarea::-webkit-scrollbar {
+  display: none;
 }
 .kanban_header_desription {
   display: flex;
@@ -141,8 +144,8 @@
 }
 .kanban_body_container {
   width: 100%;
-  height: 100%;
-  padding: 2rem 6rem 4rem 6rem;
+  height: 70%;
+  padding: 5rem 6rem 0 6rem;
   display: flex;
   flex-direction: row;
   align-items: center;
