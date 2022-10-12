@@ -6,6 +6,7 @@ import CardViewModal from "../Modals/CardViewModal";
 import CardEditModal from "../Modals/CardEditModal";
 
 const Card = (props: any) => {
+  const id = props.id;
   const [hover, setHover] = useState("");
   const [priority, setPriority] = useState({});
   const [cardModal, setCardModal] = useState(false);
@@ -15,6 +16,15 @@ const Card = (props: any) => {
   const showModal = () => {
     setCardModal(true);
     setCardEdit(false);
+  };
+  const deleteTask = () => {
+    console.log(id);
+    const task: [] = props.tasks;
+    props.setTasks((oldArray: any) =>
+      oldArray.filter((itemy: any) =>
+        itemy.items.filter((task: any) => Number(task.id) !== Number(id))
+      )
+    );
   };
   useEffect(() => {
     if (props.priority === "Easy") {
@@ -37,11 +47,11 @@ const Card = (props: any) => {
     >
       <div className="card_container">
         <div className="card_container_header">
-          <h2 style={{ color: "black" }}>{props.title}</h2>
+          <h2 style={{ color: "black" }}>{title}</h2>
           {hover === "card" ? (
             <div className="card_container_settings">
               <div className="card_container_header_close">
-                <AiOutlineClose />
+                <AiOutlineClose onClick={deleteTask} />
               </div>
               <div
                 className="card_container_header_settings"

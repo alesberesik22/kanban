@@ -27,8 +27,8 @@ const CardEditModal = (props: any) => {
   };
   const confirmEdit = () => {
     console.log(title);
-    props.setNewText(text);
     props.setNewTitle(title);
+    props.setNewText(text);
     props.setShowCardEditModatl(false);
     setOpen(false);
   };

@@ -265,6 +265,8 @@ const Kanban = () => {
                                       content={item.content}
                                       id={item.id}
                                       priority={item.priority}
+                                      tasks={columns}
+                                      setTasks={setColumns}
                                     />
                                   </div>
                                 )}
