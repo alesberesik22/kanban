@@ -10,54 +10,19 @@ import {
 import { motion } from "framer-motion";
 import NewColumnModal from "../Modals/NewColumnModal";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-
-const itemsFromBackend = [
-  {
-    id: 0,
-    title: "Title",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
-    priority: "Easy",
-  },
-  {
-    id: 1,
-    title: "Title",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
-    priority: "Medium",
-  },
-  {
-    id: 10,
-    title: "Title",
-    content: "Nieco",
-    priority: "",
-  },
-];
-const items2FromBackend = [
-  {
-    id: 3,
-    title: "Title",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
-    priority: "Critical",
-  },
-  {
-    id: 4,
-    title: "Title",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!",
-    priority: "Easy",
-  },
-];
-
-const columnsFromBackend = [
-  { id: 0, name: "To Do", items: itemsFromBackend },
-  { id: 1, name: "In Progress", items: items2FromBackend },
-  { id: 2, name: "Done", items: [] },
-];
+import { useGetKanbanTasksQuery } from "../Services/kanbanAPI";
+import { useParams } from "react-router-dom";
 
 const Kanban = () => {
-  const [columns, setColumns] = useState(columnsFromBackend);
+  const { kanbanID } = useParams();
+  const {
+    data: KanabanData,
+    isFetching: KanbanFetching,
+    refetch: KanbanRefetch,
+  } = useGetKanbanTasksQuery(kanbanID);
+  console.log(KanabanData);
+  const [counter, setCounter] = useState(0);
+  const [columns, setColumns] = useState<any>([]);
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState("Test");
   const [hover, setHover] = useState(false);
@@ -67,7 +32,8 @@ const Kanban = () => {
   const [text, setText] = useState(
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut nemo sint tempore quidem commodi ratione. Officiis, illo labore architecto dolore aut iste tenetur nulla consectetur, tempora provident nostrum minima molestias!"
   );
-  const cancelEditHover = () => {
+  const cancelEditHover = (e: any) => {
+    e.preventDefault();
     if (!edit) {
       setHover(false);
     }
@@ -82,14 +48,19 @@ const Kanban = () => {
     if (!result.destination) return;
     const { source, destination } = result;
     if (source.droppableId !== destination.droppableId) {
-      const sColumn = columns[source.droppableId];
-      const destColumn = columns[destination.droppableId];
-      const sourceItems = [...sColumn.items];
-      const destItems = [...destColumn.items];
+      console.log(source);
+      const sColumn = columns.find(
+        (x: any) => x.id === Number(source.droppableId)
+      );
+      const destColumn = columns.find(
+        (x: any) => x.id === Number(destination.droppableId)
+      );
+      const sourceItems = [...sColumn!.items];
+      const destItems = [...destColumn!.items];
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
       setColumns(
-        columns.map((item) => {
+        columns.map((item: any) => {
           if (item.id === Number(source.droppableId)) {
             return {
               ...item,
@@ -112,7 +83,7 @@ const Kanban = () => {
       const [removed] = coppiedItems.splice(source.index, 1);
       coppiedItems.splice(destination.index, 0, removed);
       setColumns(
-        columns.map((item) => {
+        columns.map((item: any) => {
           if (item.id === Number(source.droppableId)) {
             return { ...item, items: coppiedItems };
           } else {
@@ -122,12 +93,23 @@ const Kanban = () => {
       );
     }
   };
+  useEffect(() => {
+    if (KanabanData !== undefined) {
+      setColumns(KanabanData);
+    }
+  }, [KanabanData]);
+  if (KanbanFetching) {
+    return <div>Loading</div>;
+  }
   return (
     <div className="kanban">
       <div className="kanban_container">
         <div
           className="kanban_header"
-          onMouseEnter={() => setHover(true)}
+          onMouseEnter={(e) => {
+            e.preventDefault();
+            setHover(true);
+          }}
           onMouseLeave={cancelEditHover}
         >
           <div className="kanban_header_title">
@@ -136,6 +118,7 @@ const Kanban = () => {
               disabled={!edit}
               onChange={(e) => setTitle(e.target.value)}
             />
+
             {hover && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -181,7 +164,7 @@ const Kanban = () => {
           <div className="kanban_body_container">
             <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
               {columns &&
-                columns.map((column) => (
+                columns.map((column: any) => (
                   <div
                     style={{
                       display: "flex",
@@ -240,10 +223,10 @@ const Kanban = () => {
                             }}
                             className="column"
                           >
-                            {column.items.map((item, index) => (
+                            {column.items.map((item: any, index: any) => (
                               <Draggable
-                                key={item.id}
-                                draggableId={String(item.id)}
+                                key={item.task_id}
+                                draggableId={String(item.task_id)}
                                 index={index}
                               >
                                 {(provided, snapshot) => (
@@ -261,10 +244,10 @@ const Kanban = () => {
                                     }}
                                   >
                                     <Card
-                                      title={item.title}
-                                      content={item.content}
-                                      id={item.id}
-                                      priority={item.priority}
+                                      title={item.task_title}
+                                      content={item.task_content}
+                                      id={item.task_id}
+                                      priority={item.task_priority}
                                       tasks={columns}
                                       setTasks={setColumns}
                                     />

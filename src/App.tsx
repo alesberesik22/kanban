@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path={`/kanban/:id`} element={<Kanban />} />
+        <Route path={`/kanban/:kanbanID`} element={<Kanban />} />
       </Routes>
     </div>
   );
