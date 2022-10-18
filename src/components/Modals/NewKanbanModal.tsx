@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import "./NewKanbanModal.css";
+import { useCreateKanbanMutation } from "../Services/kanbanAPI";
 
 const NewKanbanModal = (props: any) => {
+  const [createKanban, responseCreateKanban] = useCreateKanbanMutation();
   const [open, setOpen] = useState(false);
   const [kanbanName, setKanbanName] = useState("");
   const handleClose = () => {
@@ -15,12 +17,11 @@ const NewKanbanModal = (props: any) => {
     props.setCreateKanban(false);
     setKanbanName("");
   };
-  const confirm = () => {
+  const confirm = async () => {
     const payload = {
-      id: Math.floor(Math.random() * (100 - 1 + 1) + 1),
-      kanban: kanbanName,
+      kanban_name: kanbanName,
     };
-    props.setNewKanban((oldArray: []) => [...oldArray, payload]);
+    await createKanban(payload);
     setKanbanName("");
     setOpen(false);
     props.setCreateKanban(false);
